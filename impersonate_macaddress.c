@@ -8,6 +8,7 @@
 #include <net/if.h>
 #include <net/if_arp.h>
 #include <sys/ioctl.h>
+#include <sys/utsname.h>
 #include <stdarg.h>
 #include <string.h>
 #include <stdlib.h>
@@ -70,3 +71,23 @@ int ioctl(int d, unsigned long request, ...)
 		return ret;
 	}
 }
+
+/*
+int uname(struct utsname *buf) {
+	int ret;
+	int (*real_uname)(struct utsname *buf);
+
+	real_uname = dlsym(RTLD_NEXT, "uname");
+	ret = real_uname(buf);
+	if (ret == 0) {
+		buf->nodename[0] = 'h';
+		buf->nodename[1] = 'o';
+		buf->nodename[2] = 's';
+		buf->nodename[3] = 't';
+		buf->nodename[4] = '1';
+		buf->nodename[5] = '\0';
+	}
+	printf("output: %s\n", buf->nodename);
+	return ret;
+}
+*/
